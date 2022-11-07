@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">Get Weather</string>
+  <string name="txt_error_loading">Ошибка загрузки...</string>
 </resources>
