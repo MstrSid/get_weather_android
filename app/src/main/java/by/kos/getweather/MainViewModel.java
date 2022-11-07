@@ -18,32 +18,32 @@ public class MainViewModel extends AndroidViewModel {
   private static final String TAG = "mainVM";
   private static final String BASE_URL = "https://api.open-meteo.com/";
   private CompositeDisposable compositeDisposable = new CompositeDisposable();
-  private MutableLiveData<ArrayList<String>> weatherTimeList = new MutableLiveData<>();
-  private MutableLiveData<ArrayList<Double>> weatherTMinList = new MutableLiveData<>();
-  private MutableLiveData<ArrayList<Double>> weatherTMaxList = new MutableLiveData<>();
-  private MutableLiveData<Double> weatherLatitude = new MutableLiveData<>();
-  private MutableLiveData<Double> weatherLongitude = new MutableLiveData<>();
+  private MutableLiveData<ArrayList<? extends String>> weatherTimeList = new MutableLiveData<>();
+  private MutableLiveData<ArrayList<? extends Number>> weatherTMinList = new MutableLiveData<>();
+  private MutableLiveData<ArrayList<? extends Number>> weatherTMaxList = new MutableLiveData<>();
+  private MutableLiveData<Number> weatherLatitude = new MutableLiveData<>();
+  private MutableLiveData<Number> weatherLongitude = new MutableLiveData<>();
   private MutableLiveData<Boolean> isError = new MutableLiveData<>();
   private MutableLiveData<Boolean> isLoad = new MutableLiveData<>();
 
 
-  public LiveData<ArrayList<String>> getWeatherTimeList() {
+  public LiveData<ArrayList<? extends String>> getWeatherTimeList() {
     return weatherTimeList;
   }
 
-  public LiveData<ArrayList<Double>> getWeatherTMinList() {
+  public LiveData<ArrayList<? extends Number>> getWeatherTMinList() {
     return weatherTMinList;
   }
 
-  public LiveData<ArrayList<Double>> getWeatherTMaxList() {
+  public LiveData<ArrayList<? extends Number>> getWeatherTMaxList() {
     return weatherTMaxList;
   }
 
-  public LiveData<Double> getWeatherLatitude() {
+  public LiveData<Number> getWeatherLatitude() {
     return weatherLatitude;
   }
 
-  public LiveData<Double> getWeatherLongitude() {
+  public LiveData<Number> getWeatherLongitude() {
     return weatherLongitude;
   }
 
@@ -51,15 +51,13 @@ public class MainViewModel extends AndroidViewModel {
     return isError;
   }
 
-  public MainViewModel(@NonNull Application application) {
-    super(application);
-  }
-
-  public MutableLiveData<Boolean> getIsLoad() {
+  public LiveData<Boolean> getIsLoad() {
     return isLoad;
   }
 
-
+  public MainViewModel(@NonNull Application application) {
+    super(application);
+  }
 
   public void loadWeather() {
 

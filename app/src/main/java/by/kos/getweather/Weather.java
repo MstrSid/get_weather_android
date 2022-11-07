@@ -2,19 +2,19 @@ package by.kos.getweather;
 
 import java.util.ArrayList;
 
-public class Weather {
+public class Weather<N extends Number, S extends String> {
 
-  private double latitude;
-  private double longitude;
-  private Daily daily;
+  private final N latitude;
+  private final N longitude;
+  private final Daily daily;
 
-  public Weather(Double latitude, Double longitude, Daily daily) {
+  public Weather(N latitude, N longitude, Daily daily) {
     this.latitude = latitude;
     this.longitude = longitude;
     this.daily = daily;
   }
 
-  public Double getLatitude() {
+  public N getLatitude() {
     return latitude;
   }
 
@@ -22,32 +22,32 @@ public class Weather {
     return daily;
   }
 
-  public double getLongitude() {
+  public N getLongitude() {
     return longitude;
   }
 
   class Daily {
 
-    ArrayList<String> time;
-    ArrayList<Double> temperature_2m_max;
-    ArrayList<Double> temperature_2m_min;
+    ArrayList<S> time;
+    ArrayList<N> temperature_2m_max;
+    ArrayList<N> temperature_2m_min;
 
-    public Daily(ArrayList<String> time, ArrayList<Double> temperature_2m_max,
-        ArrayList<Double> temperature_2m_min) {
+    public Daily(ArrayList<S> time, ArrayList<N> temperature_2m_max,
+        ArrayList<N> temperature_2m_min) {
       this.time = time;
       this.temperature_2m_max = temperature_2m_max;
       this.temperature_2m_min = temperature_2m_min;
     }
 
-    public ArrayList<String> getTime() {
+    public ArrayList<S> getTime() {
       return time;
     }
 
-    public ArrayList<Double> getTemperature_2m_max() {
+    public ArrayList<N> getTemperature_2m_max() {
       return temperature_2m_max;
     }
 
-    public ArrayList<Double> getTemperature_2m_min() {
+    public ArrayList<N> getTemperature_2m_min() {
       return temperature_2m_min;
     }
   }

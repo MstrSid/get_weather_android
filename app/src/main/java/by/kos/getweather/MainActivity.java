@@ -1,11 +1,10 @@
 package by.kos.getweather;
 
+import android.os.Bundle;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.snackbar.Snackbar;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
