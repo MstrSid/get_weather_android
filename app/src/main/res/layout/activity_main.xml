@@ -4,4 +4,158 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".MainActivity"/>
+  android:padding="4dp"
+  tools:context=".MainActivity">
+
+  <androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
+    app:cardPreventCornerOverlap="false"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+    <ImageView
+      android:id="@+id/ivWeatherBG"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:scaleType="centerCrop"
+      app:srcCompat="@drawable/bg" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:padding="8dp">
+      <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+      <TextView
+        android:id="@+id/tvGPSDataLat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCoordsTxt"
+        app:layout_constraintEnd_toStartOf="@id/tvGPSDataLong"
+        app:layout_constraintStart_toEndOf="@+id/tvCoordsTxt"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="50.255" />
+      <TextView
+        android:id="@+id/tvGPSDataLong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCoordsTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvGPSDataLat"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="30.698" />
+      <TextView
+        android:id="@+id/tvCoordsTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="1dp"
+        android:text="GPS coordinates:"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+      <TextView
+        android:id="@+id/tvDateTimeTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="On time:"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvCoordsTxt"
+        app:layout_constraintStart_toStartOf="@+id/tvCoordsTxt"
+        app:layout_constraintTop_toBottomOf="@+id/tvCoordsTxt" />
+      <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="18.02.2022"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDateTimeTxt"
+        app:layout_constraintEnd_toStartOf="@+id/tvTime"
+        app:layout_constraintStart_toEndOf="@+id/tvDateTimeTxt"
+        app:layout_constraintTop_toBottomOf="@+id/tvCoordsTxt" />
+      <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="18:00:00"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvDate"
+        app:layout_constraintTop_toTopOf="@+id/tvDate" />
+      <TextView
+        android:id="@+id/tvTNowData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:textSize="120sp"
+        app:layout_constraintEnd_toStartOf="@id/tvTNowUnit"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDateTimeTxt"
+        tools:text="00" />
+      <TextView
+        android:id="@+id/tvTNowUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="°C"
+        android:textColor="@color/white"
+        android:textSize="64sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvTNowData"
+        app:layout_constraintTop_toTopOf="@+id/tvTNowData" />
+      <TextView
+        android:id="@+id/tvWindSpeedTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wind speed:"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTNowData" />
+      <TextView
+        android:id="@+id/tvWindSpeedData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="00"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWindSpeedTxt"
+        app:layout_constraintStart_toEndOf="@+id/tvWindSpeedTxt"
+        app:layout_constraintTop_toTopOf="@+id/tvWindSpeedTxt" />
+      <TextView
+        android:id="@+id/tvWindSpeedUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:text="m/s"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWindSpeedData"
+        app:layout_constraintStart_toEndOf="@+id/tvWindSpeedData"
+        app:layout_constraintTop_toTopOf="@+id/tvWindSpeedData" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+  </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

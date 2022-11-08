@@ -1,4 +1,4 @@
-package by.kos.getweather;
+package by.kos.getweather.utils;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
