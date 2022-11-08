@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
   private Double windSpeedNow;
   private Integer weatherCodeNow;
   private String dateTimeNow;
+  private String time;
+  private String date;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     weatherStates = UtilsStatic.getWeatherState(getApplication());
     viewModel.loadWeather();
     initViews();
+
     setObservers();
   }
 
@@ -75,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
       tvGPSDataLong.setText(longitude.toString());
       tvTNowData.setText(tNow.toString());
       tvWindSpeedData.setText(windSpeedNow.toString());
-      String[] arr = dateTimeNow.split("T");
-      tvTime.setText(arr[1]);
-      tvDate.setText(arr[0]);
+      formatTimeDate();
+      tvTime.setText(time);
+      tvDate.setText(date);
       tvWeatherCodeData.setText(getWeatherStateText());
     });
 
@@ -107,6 +110,13 @@ public class MainActivity extends AppCompatActivity {
       }
     }
     return result;
+  }
+
+  private void formatTimeDate() {
+    String[] arr = dateTimeNow.split("T");
+    time = arr[1];
+    String[] arrDates = arr[0].split("-");
+    date = arrDates[2] + "." + arrDates[1] + "." + arrDates[0];
   }
 
   private void logging() {
