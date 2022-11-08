@@ -154,6 +154,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/tvWindSpeedData"
         app:layout_constraintStart_toEndOf="@+id/tvWindSpeedData"
         app:layout_constraintTop_toTopOf="@+id/tvWindSpeedData" />
+      <TextView
+        android:id="@+id/tvWeatherCodeData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="-"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvWindSpeedUnit"
+        app:layout_constraintTop_toBottomOf="@+id/tvTNowData" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

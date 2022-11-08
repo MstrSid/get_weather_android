@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import by.kos.getweather.R;
 import by.kos.getweather.utils.ApiFactory;
 import by.kos.getweather.datamodels.Weather;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -13,6 +14,7 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import java.util.LinkedHashMap;
 
 public class MainViewModel extends AndroidViewModel {
 
@@ -57,7 +59,7 @@ public class MainViewModel extends AndroidViewModel {
   }
 
   private Single<Weather> loadWeatherRx() {
-    return ApiFactory.getApiService().loadWeather();
+    return ApiFactory.getApiService().loadWeather(53.1384, 29.2214);
   }
 
   @Override

@@ -1,4 +1,64 @@
 <resources>
+  <integer-array name="weatherCodeKeys">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>45</item>
+    <item>48</item>
+    <item>51</item>
+    <item>53</item>
+    <item>55</item>
+    <item>56</item>
+    <item>57</item>
+    <item>61</item>
+    <item>63</item>
+    <item>65</item>
+    <item>66</item>
+    <item>67</item>
+    <item>71</item>
+    <item>73</item>
+    <item>75</item>
+    <item>77</item>
+    <item>80</item>
+    <item>81</item>
+    <item>82</item>
+    <item>85</item>
+    <item>86</item>
+    <item>95</item>
+    <item>96</item>
+    <item>99</item>
+  </integer-array>
   <string name="app_name">Get Weather</string>
   <string name="txt_error_loading">Ошибка загрузки...</string>
+  <string-array name="weatherCodeValues">
+    <item>Clear sky</item>
+    <item>Mainly clear</item>
+    <item>Partly cloudy</item>
+    <item>Overcast</item>
+    <item>Fog</item>
+    <item>Depositing rime fog</item>
+    <item>Light drizzle</item>
+    <item>Moderate drizzle</item>
+    <item>Moderate drizzle</item>
+    <item>Light freezing drizzle</item>
+    <item>Dense intensity freezing drizzle</item>
+    <item>Slight rain</item>
+    <item>Moderate rain</item>
+    <item>Heavy rain</item>
+    <item>Light freezing rain</item>
+    <item>Heavy freezing rain</item>
+    <item>Slight snow fall</item>
+    <item>Moderate snow fall</item>
+    <item>Heavy snow fall</item>
+    <item>Snow grains</item>
+    <item>Slight rain shower</item>
+    <item>Moderate rain shower</item>
+    <item>Violent rain shower</item>
+    <item>Slight snow shower</item>
+    <item>Heavy snow shower</item>
+    <item>Slight or moderate thunderstorm</item>
+    <item>Thunderstorm with slight hail</item>
+    <item>Thunderstorm with heavy hail</item>
+  </string-array>
 </resources>
