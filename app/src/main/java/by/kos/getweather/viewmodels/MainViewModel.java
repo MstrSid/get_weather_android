@@ -48,8 +48,10 @@ public class MainViewModel extends AndroidViewModel {
         subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe(load -> isLoad.setValue(true))
-        .doAfterTerminate(() -> isLoad.setValue(false))
-        .doOnError(throwable -> isError.setValue(true))
+        .doAfterSuccess(success -> isLoad.setValue(false))
+        .doOnError(throwable -> {
+          isError.setValue(true);
+        })
         .subscribe(weatherData -> {
           weather.setValue(weatherData);
         }, throwable -> {

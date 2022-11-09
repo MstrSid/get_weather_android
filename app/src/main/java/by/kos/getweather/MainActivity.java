@@ -103,12 +103,11 @@ public class MainActivity extends AppCompatActivity {
       double latitude = gpsTracker.getLatitude();
       double longitude = gpsTracker.getLongitude();
       viewModel.loadWeather(latitude, longitude);
-      Log.d("coordC", String.valueOf(latitude));
-      Log.d("coordC", String.valueOf(longitude));
+      gpsTracker.stopUsingGPS();
     } else {
-      //viewModel.loadWeather(53.1384, 29.2214);
-      viewModel.loadWeather(10.0, 10.0);
+      viewModel.loadWeather(0.0, 0.0);
       gpsTracker.showSettingsAlert();
+      gpsTracker.stopUsingGPS();
     }
   }
 
@@ -169,13 +168,6 @@ public class MainActivity extends AppCompatActivity {
     }
     return result;
   }
-
-//  private void formatTimeDate() {
-//    String[] arr = dateTimeNow.split("T");
-//    time = arr[1];
-//    String[] arrDates = arr[0].split("-");
-//    date = arrDates[2] + "." + arrDates[1] + "." + arrDates[0];
-//  }
 
   private void logging() {
     Log.d(TAG, "latitude: " + latitude);
