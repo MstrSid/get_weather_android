@@ -7,7 +7,7 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
-  @GET("forecast?daily=temperature_2m_max,temperature_2m_min&timezone=Europe%2FMoscow&current_weather=true")
+  @GET("forecast?daily=temperature_2m_max,temperature_2m_min&timezone=Europe%2FMoscow&current_weather=true&daily=weathercode")
   Single<Weather> loadWeather(
       @Query("latitude") Double lat,
       @Query("longitude") Double lon);

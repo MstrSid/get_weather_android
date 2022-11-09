@@ -7,6 +7,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import by.kos.getweather.utils.UtilsStatic;
 import by.kos.getweather.viewmodels.MainViewModel;
 import com.google.android.material.snackbar.Snackbar;
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
   private MainViewModel viewModel;
   private static final String TAG = "mainACTV";
+
   private TextView tvGPSDataLat;
   private TextView tvGPSDataLong;
   private TextView tvDate;
@@ -25,15 +28,20 @@ public class MainActivity extends AppCompatActivity {
   private TextView tvWindSpeedData;
   private TextView tvWeatherCodeData;
   private ProgressBar progressBar;
+  private RecyclerView rvForecast;
+  private WeatherRVAdapter weatherRVAdapter;
+
   private HashMap<Integer, String> weatherStates;
   private Double latitude;
   private Double longitude;
-  private ArrayList<String> timeList;
-  private ArrayList<Double> tMinList;
-  private ArrayList<Double> tMaxList;
+  private ArrayList<String> timeListDaily;
+  private ArrayList<Double> tMinListDaily;
+  private ArrayList<Double> tMaxListDaily;
+  private ArrayList<Integer> weatherCodeDaily;
   private Double tNow;
   private Double windSpeedNow;
   private Integer weatherCodeNow;
+
   private String dateTimeNow;
   private String time;
   private String date;
@@ -42,11 +50,13 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
+    initViews();
+    weatherRVAdapter = new WeatherRVAdapter();
+    rvForecast.setAdapter(weatherRVAdapter);
+    rvForecast.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
     viewModel = new ViewModelProvider(this).get(MainViewModel.class);
     weatherStates = UtilsStatic.getWeatherState(getApplication());
     viewModel.loadWeather();
-    initViews();
 
     setObservers();
   }
@@ -60,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     tvTNowData = findViewById(R.id.tvTNowData);
     tvWindSpeedData = findViewById(R.id.tvWindSpeedData);
     tvWeatherCodeData = findViewById(R.id.tvWeatherCodeData);
+    rvForecast = findViewById(R.id.rvForecast);
   }
 
   private void setObservers() {
@@ -67,21 +78,29 @@ public class MainActivity extends AppCompatActivity {
     viewModel.getWeather().observe(this, weather -> {
       latitude = weather.getLatitude();
       longitude = weather.getLongitude();
-      timeList = weather.getDaily().getTime();
-      tMinList = weather.getDaily().getTemperature_2m_min();
-      tMaxList = weather.getDaily().getTemperature_2m_max();
+
+      timeListDaily = weather.getDaily().getTime();
+      tMinListDaily = weather.getDaily().getTemperature_2m_min();
+      tMaxListDaily = weather.getDaily().getTemperature_2m_max();
+      weatherCodeDaily = weather.getDaily().getWeathercodeD();
+
       tNow = weather.getCurrentWeather().getTemperature();
       windSpeedNow = weather.getCurrentWeather().getWindspeed();
       weatherCodeNow = weather.getCurrentWeather().getWeathercode();
       dateTimeNow = weather.getCurrentWeather().getTime();
+
       tvGPSDataLat.setText(latitude.toString());
       tvGPSDataLong.setText(longitude.toString());
       tvTNowData.setText(tNow.toString());
       tvWindSpeedData.setText(windSpeedNow.toString());
-      formatTimeDate();
-      tvTime.setText(time);
-      tvDate.setText(date);
+      tvTime.setText(UtilsStatic.formatTimeDate(dateTimeNow).get("time"));
+      tvDate.setText(UtilsStatic.formatTimeDate(dateTimeNow).get("date"));
       tvWeatherCodeData.setText(getWeatherStateText());
+      weatherRVAdapter.setTimeList(timeListDaily);
+      weatherRVAdapter.settMinList(tMinListDaily);
+      weatherRVAdapter.settMaxList(tMaxListDaily);
+      weatherRVAdapter.setWeatherStateList(weatherCodeDaily);
+      weatherRVAdapter.notifyDataSetChanged();
     });
 
     viewModel.getIsError().observe(this, isError -> {
@@ -112,23 +131,23 @@ public class MainActivity extends AppCompatActivity {
     return result;
   }
 
-  private void formatTimeDate() {
-    String[] arr = dateTimeNow.split("T");
-    time = arr[1];
-    String[] arrDates = arr[0].split("-");
-    date = arrDates[2] + "." + arrDates[1] + "." + arrDates[0];
-  }
+//  private void formatTimeDate() {
+//    String[] arr = dateTimeNow.split("T");
+//    time = arr[1];
+//    String[] arrDates = arr[0].split("-");
+//    date = arrDates[2] + "." + arrDates[1] + "." + arrDates[0];
+//  }
 
   private void logging() {
     Log.d(TAG, "latitude: " + latitude);
     Log.d(TAG, "longitude: " + longitude);
-    for (Object o : timeList) {
+    for (Object o : timeListDaily) {
       Log.d(TAG, o.toString());
     }
-    for (Object o : tMinList) {
+    for (Object o : tMinListDaily) {
       Log.d(TAG, "t. min: " + o.toString());
     }
-    for (Object o : tMaxList) {
+    for (Object o : tMaxListDaily) {
       Log.d(TAG, "t. max: " + o.toString());
     }
     Log.d(TAG, "On time now: " + dateTimeNow);

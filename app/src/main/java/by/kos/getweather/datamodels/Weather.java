@@ -71,12 +71,18 @@ public class Weather {
     ArrayList<String> time;
     ArrayList<Double> temperature_2m_max;
     ArrayList<Double> temperature_2m_min;
+    ArrayList<Integer> weathercode;
 
     public Daily(ArrayList<String> time, ArrayList<Double> temperature_2m_max,
-        ArrayList<Double> temperature_2m_min) {
+        ArrayList<Double> temperature_2m_min, ArrayList<Integer> weathercode) {
       this.time = time;
       this.temperature_2m_max = temperature_2m_max;
       this.temperature_2m_min = temperature_2m_min;
+      this.weathercode = weathercode;
+    }
+
+    public ArrayList<Integer> getWeathercodeD() {
+      return weathercode;
     }
 
     public ArrayList<String> getTime() {
