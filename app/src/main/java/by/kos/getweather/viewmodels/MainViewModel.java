@@ -42,9 +42,9 @@ public class MainViewModel extends AndroidViewModel {
     super(application);
   }
 
-  public void loadWeather() {
+  public void loadWeather(Double lat, Double lon) {
 
-    Disposable disposableWeather = loadWeatherRx().
+    Disposable disposableWeather = loadWeatherRx(lat, lon).
         subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe(load -> isLoad.setValue(true))
@@ -58,8 +58,8 @@ public class MainViewModel extends AndroidViewModel {
     compositeDisposable.add(disposableWeather);
   }
 
-  private Single<Weather> loadWeatherRx() {
-    return ApiFactory.getApiService().loadWeather(53.1384, 29.2214);
+  private Single<Weather> loadWeatherRx(Double lat, Double lon) {
+    return ApiFactory.getApiService().loadWeather(lat, lon);
   }
 
   @Override

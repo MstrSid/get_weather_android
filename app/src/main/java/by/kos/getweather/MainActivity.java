@@ -1,14 +1,19 @@
 package by.kos.getweather;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import by.kos.getweather.utils.GpsTracker;
 import by.kos.getweather.utils.UtilsStatic;
 import by.kos.getweather.viewmodels.MainViewModel;
 import com.google.android.material.snackbar.Snackbar;
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
   private ProgressBar progressBar;
   private RecyclerView rvForecast;
   private WeatherRVAdapter weatherRVAdapter;
+  private ImageView ivRefresh;
 
   private HashMap<Integer, String> weatherStates;
   private Double latitude;
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
   private String dateTimeNow;
   private String time;
   private String date;
+  private GpsTracker gpsTracker;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +63,13 @@ public class MainActivity extends AppCompatActivity {
     rvForecast.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
     viewModel = new ViewModelProvider(this).get(MainViewModel.class);
     weatherStates = UtilsStatic.getWeatherState(getApplication());
-    viewModel.loadWeather();
-
+    getPermissions();
+    setGPS();
     setObservers();
+    ivRefresh.setOnClickListener(view -> {
+      getPermissions();
+      setGPS();
+    });
   }
 
   private void initViews() {
@@ -71,6 +82,34 @@ public class MainActivity extends AppCompatActivity {
     tvWindSpeedData = findViewById(R.id.tvWindSpeedData);
     tvWeatherCodeData = findViewById(R.id.tvWeatherCodeData);
     rvForecast = findViewById(R.id.rvForecast);
+    ivRefresh = findViewById(R.id.ivRefresh);
+  }
+
+  private void getPermissions(){
+    try {
+      if (ContextCompat.checkSelfPermission(getApplicationContext(),
+          android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        ActivityCompat.requestPermissions(this,
+            new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void setGPS(){
+    gpsTracker = new GpsTracker(MainActivity.this);
+    if (gpsTracker.canGetLocation()) {
+      double latitude = gpsTracker.getLatitude();
+      double longitude = gpsTracker.getLongitude();
+      viewModel.loadWeather(latitude, longitude);
+      Log.d("coordC", String.valueOf(latitude));
+      Log.d("coordC", String.valueOf(longitude));
+    } else {
+      //viewModel.loadWeather(53.1384, 29.2214);
+      viewModel.loadWeather(10.0, 10.0);
+      gpsTracker.showSettingsAlert();
+    }
   }
 
   private void setObservers() {
